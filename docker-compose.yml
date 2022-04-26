@@ -1,0 +1,25 @@
+version: "3.5"
+services:
+  test_task:
+    build: .
+    volumes:
+      - ./:/var/www
+    environment:
+      APP_PORT: 80
+      DB_HOST: <DB_HOST>
+      DB_PORT: <DB_PORT>
+      DB_NAME: <DB_NAME>
+      DB_USER: <DB_USER>
+      DB_PASS: <DB_PASS>
+
+    command: "npm run start"
+    ports:
+      - 8080:80
+
+  mongodb:
+    image: mongo:3.6-jessie
+    restart: on-failure
+    volumes:
+      - ./mongodb/data:/data/db
+    ports:
+      - 27018:27017
