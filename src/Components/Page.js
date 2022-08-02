@@ -41,7 +41,7 @@ function Page() {
 
   const providers = useQuery(PROVIDERS_QUERY, {
     variables: {
-      filter: `region.url=${REGION_URL}`,
+      filter: `region.url=${REGION_URL}&info.cnt_tariffs>0`,
       limit: 50,
       offset: 0,
       sort: "name",
@@ -89,13 +89,11 @@ function Page() {
           <MenuItem value="0">
             <em>None</em>
           </MenuItem>
-          {providersData
-            .filter((x) => x.info.cnt_tariffs > 0)
-            .map((provider) => (
-              <MenuItem key={provider.id} value={provider.id}>
-                {provider.name}
-              </MenuItem>
-            ))}
+          {providersData.map((provider) => (
+            <MenuItem key={provider.id} value={provider.id}>
+              {provider.name}
+            </MenuItem>
+          ))}
         </Select>
       </FormControl>
       <TableContainer component={Paper}>
